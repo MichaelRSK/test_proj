@@ -1,0 +1,53 @@
+<div class="dock">
+    <a class="icon-button" onclick="navigateToMap()"><img src="/static/images/dock/icon_map_white.png" alt="Map"></a>
+    <button class="icon-button" onclick="navigateHome()"><img src="/static/images/dock/icon_home_white.png" alt="Home"></button>
+    <button class="icon-button" id="settingsButton"><img src="/static/images/dock/icon_settings_white.png" alt="Settings"></button>
+</div>
+<div id="settingsPopup" class="settings-popup">
+    <ul>
+        <li>Setting 1</li>
+        <li>Setting 2</li>
+        <li>Setting 3</li>
+        <li id="translateOption">Translate</li> <!-- Add this line -->
+        <!-- Add more settings as needed -->
+    </ul>
+</div>
+
+
+<script>
+    document.getElementById('settingsButton').addEventListener('click', function(event) {
+        event.stopPropagation(); // Prevent click from immediately propagating to document
+        var popup = document.getElementById('settingsPopup');
+        if (popup.style.display === 'none' || popup.style.display === '') {
+            popup.style.display = 'block';
+            popup.classList.remove('fade-out');
+            popup.classList.add('fade-in');
+        } else {
+            popup.classList.remove('fade-in');
+            popup.classList.add('fade-out');
+            // Wait for the animation to finish before hiding the popup
+            setTimeout(() => { popup.style.display = 'none'; }, 500);
+        }
+    });
+
+    // Close the popup when clicking outside of it
+    document.addEventListener('click', function(event) {
+        var popup = document.getElementById('settingsPopup');
+        if (!popup.contains(event.target)) {
+            if (popup.style.display === 'block') {
+                popup.classList.remove('fade-in');
+                popup.classList.add('fade-out');
+                setTimeout(() => { popup.style.display = 'none'; }, 500);
+            }
+        }
+    });
+
+    function navigateHome() {
+        window.location.href = '/';
+    }
+
+    function navigateToMap() {
+        window.location.href = 'https://glazermuseum.org/wp-content/uploads/2024/01/2024-Map.pdf';
+    }
+</script>
+
